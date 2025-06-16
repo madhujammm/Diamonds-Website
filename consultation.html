@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Diamond Consultation | DIAMONDÉ</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Dark Mode Toggle -->
+  <button id="darkModeToggle" class="dark-toggle" aria-label="Toggle dark mode">🌙</button>
+
+  <!-- Consultation Form Section -->
+  <section class="consultation-section" data-aos="fade-in">
+    <div class="consultation-container">
+      <div class="consultation-header">
+        <h1>Personal Diamond Consultation</h1>
+        <p>Complete this form and our diamond specialist will contact you within 24 hours to discuss your perfect piece.</p>
+      </div>
+      
+      <form class="consultation-form" id="consultationForm">
+        <div class="form-group">
+          <label for="name">Full Name*</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number*</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="interest">I'm interested in*</label>
+          <select id="interest" name="interest" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="engagement">Engagement Ring</option>
+            <option value="wedding">Wedding Bands</option>
+            <option value="diamond">Loose Diamond</option>
+            <option value="necklace">Necklace/Pendant</option>
+            <option value="earrings">Earrings</option>
+            <option value="custom">Custom Design</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="budget">Budget Range*</label>
+          <select id="budget" name="budget" required>
+            <option value="" disabled selected>Select budget range</option>
+            <option value="20-50">₹20,000 - ₹50,000</option>
+            <option value="50-100">₹50,000 - ₹100,000</option>
+            <option value="100-200">₹100,000 - ₹200,000</option>
+            <option value="200+">₹200,000+</option>
+            <option value="unsure">Not sure yet</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="timeline">When do you need this by?</label>
+          <select id="timeline" name="timeline">
+            <option value="" disabled selected>Select timeline</option>
+            <option value="1month">Within 1 month</option>
+            <option value="3months">1-3 months</option>
+            <option value="6months">3-6 months</option>
+            <option value="nopreference">No specific timeline</option>
+          </select>
+        </div>
+        
+        <div class="form-group full-width">
+          <label for="message">Any special requests or details we should know?</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        
+        <div class="form-submit">
+          <button type="submit" class="btn primary">Submit Request</button>
+          <p class="form-note">By submitting, you agree to our Privacy Policy and consent to our team contacting you about your inquiry.</p>
+        </div>
+      </form>
+    </div>
+    
+    <div class="consultation-benefits" data-aos="fade-left">
+      <h3>What to expect from your consultation:</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> <strong>Personalized Service:</strong> 1-on-1 with a diamond expert</li>
+        <li><i class="fas fa-check"></i> <strong>No Pressure:</strong> Education-focused approach</li>
+        <li><i class="fas fa-check"></i> <strong>Virtual Options:</strong> Video call or in-person meeting</li>
+        <li><i class="fas fa-check"></i> <strong>Custom Designs:</strong> Bring your vision to life</li>
+        <li><i class="fas fa-check"></i> <strong>Certified Stones:</strong> View GIA/IGI certified diamonds</li>
+      </ul>
+      
+      <div class="consultation-contact">
+        <h4>Prefer to talk now?</h4>
+        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+        <p><i class="fas fa-envelope"></i> support@diamonde.com</p>
+        <p><i class="fas fa-clock"></i> Mon-Sat: 10AM - 7PM</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal (hidden by default) -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <div class="modal-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>Request Received!</h2>
+      <p>Thank you for your consultation request. Our diamond specialist will contact you within 24 hours.</p>
+      <p>In the meantime, you might want to explore our <a href="index.html#collection">collections</a> for inspiration.</p>
+      <button class="btn primary" id="modalCloseBtn">Back to Home</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    // Dark mode toggle
+    const toggleBtn = document.getElementById("darkModeToggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      toggleBtn.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
+    });
+
+    // Form submission handling
+    const form = document.getElementById('consultationForm');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.querySelector('.close-modal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would typically send the form data to your server
+      // For demo purposes, we'll just show the success modal
+      successModal.style.display = 'flex';
+    });
+
+    closeModal.addEventListener('click', function() {
+      successModal.style.display = 'none';
+    });
+
+    modalCloseBtn.addEventListener('click', function() {
+      successModal.style.display = 'none';
+      window.location.href = 'index.html';
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(e) {
+      if (e.target === successModal) {
+        successModal.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
